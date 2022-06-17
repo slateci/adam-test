@@ -1,3 +1,4 @@
+---
 Ingress:
   Enabled: true
   Class: slate
