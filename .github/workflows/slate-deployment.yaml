@@ -7,12 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy
-        uses: slateci/github-actions/.github/workflows/slate-deployment.yml@feature/6_add-slate-instance-gitops
-        with:
-          email_changes: false
-        secrets:
-          mailgun_api_key: ${{ secrets.MAILGUN_API_KEY }}
+    name: Deploy
+    uses: slateci/github-actions/.github/workflows/slate-deployment.yml@feature/6_add-slate-instance-gitops
+    with:
+      email_changes: false
