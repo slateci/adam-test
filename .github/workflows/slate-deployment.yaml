@@ -11,7 +11,7 @@ jobs:
     uses: slateci/github-actions/.github/workflows/slate-deployment.yml@feature/6_add-slate-instance-gitops
     with:
       email_changes: true
-      mailgun_from: "adam.h.griffith@utah.edu"
+      mailgun_send_to: "adam.h.griffith@utah.edu"
     secrets:
       mailgun_api_key: "${{ secrets.MAILGUN_API_KEY }}"
       slate_api_token: "${{ secrets.SLATE_API_TOKEN }}"
