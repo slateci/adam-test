@@ -11,3 +11,5 @@ jobs:
     uses: slateci/github-actions/.github/workflows/slate-deployment.yml@feature/6_add-slate-instance-gitops
     with:
       email_changes: false
+    secrets:
+      slate_api_token: ${{ secrets.SLATE_API_TOKEN }}
