@@ -1,6 +1,10 @@
 # GitOps automation for SLATE instances
 
-This repository provides a reference implementation of GitOps style automation for SLATE instances. This automation consists of a GitHub workflow for files that match `values.yaml` and `instance.yaml`. When a file associated with an instance is modified the workflow will update that instance. If a file is added, it will be deployed as a new instance.
+This repository provides a reference implementation of GitOps style automation for SLATE instances. This automation consists of:
+
+-A GitHub Actions workflow for downloading our Python updater script, detecting changes, and running the Python updater
+
+The workflow looks for files that match `values.yaml` and `instance.yaml`. When a file associated with an instance is modified the workflow will update that instance. If a file is added, it will be deployed as a new instance.
 
 ## Setup
 
@@ -18,6 +22,10 @@ Example:
 ...
 ...
 ```
+
+### Notification Emails
+
+Open `./.github/workflows/slate-deployment.yml` and update `mailgun_send_to` with a comma-delimited list of email addresses for those you wish notified when changes are made.
 
 ### SLATE Token
 
