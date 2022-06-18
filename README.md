@@ -1,10 +1,6 @@
 # GitOps automation for SLATE instances
 
-This repository provides a reference implementation of GitOps style automation for SLATE instances. This automation consists of:
-
--A GitHub Actions workflow for downloading our Python updater script, detecting changes, and running the Python updater
-
-The workflow looks for files that match `values.yaml` and `instance.yaml`. When a file associated with an instance is modified the workflow will update that instance. If a file is added, it will be deployed as a new instance.
+This repository provides a reference implementation of GitOps style automation for SLATE instances. This automation consists of a GitHub workflow for files that match `values.yaml` and `instance.yaml`. When a file associated with an instance is modified the workflow will update that instance. If a file is added, it will be deployed as a new instance.
 
 ## Setup
 
@@ -12,18 +8,29 @@ Place the Values file `values.yaml` into a directory that represents the instanc
 
 Example:
 
-        MY_INSTANCE/values.yaml
-        MY_INSTANCE/instance.yaml
-
+```shell
+├── <instance-one>
+│   ├── instance.yaml
+│   ├── values.yaml
+├── <instance-two>
+│   ├── instance.yaml
+│   ├── values.yaml
+...
+...
+```
 
 ### SLATE Token
 
-You will need to add your SLATE user token (obtained from portal.slateci.io/cli) as a repository secret on your GitHub repository. To do this:
+You will need to add your SLATE user token (obtained from the [SLATE Portal](https://portal.slateci.io/cli)) as a repository secret on your GitHub repository. To do this:
 
 1. Navigate to `Settings` on the top bar of the GitHub repository interface
-2. Choose `Secrets` from the left-hand side bar menu
+2. Choose `Secrets --> Actions` from the left-hand side bar menu
 3. Click the button that says `New repository secret` upper right
 4. Name the secret `SLATE_API_TOKEN`
+
+### Mailgun API Key
+
+You will need to add your Mailgun API Key (optained from the SLATE team) as a repository secret in your GitHub repository. Use the steps described above for `SLATE_API_TOKEN` to create a new `MAILGUN_API_KEY` secret.
 
 ### instance.yaml
 
@@ -31,62 +38,30 @@ For each instance, you must also have a file called `instance.yaml` that contain
 
 Optionally you can specify and update the version of the SLATE application with the `version` field in `instance.yaml`. If `version` is unspecified the latest version is the default.
 
-**New Instances**
+#### New Instances
 
 To deploy new instances you must include the cluster, group, and app. Version is optional.
 
-        cluster: uutah-prod
-        group: slate-dev
-        app: nginx
-        version: 1.2.0
+```yaml
+cluster: uutah-prod
+group: slate-dev
+app: nginx
+version: 1.2.0
+```
 
- **Existing instances**
+#### Existing instances
 
- To manage existing instances you only need to specify a SLATE instanceID.
+To manage existing instances you only need to specify a SLATE instanceID.
 
-        instance: instance_BrX9HtpP1L0
-
-### Copy the workflow
-
-Once everything is setup, copy `.github/workflows/slate-deployment.yml` into your repository.
-
-### Enable Actions in the GitHub UI
-
-Once the workflow is added to the repository, you must allow it to run by navigating to the Actions tab in GitHub's interface.
+```yaml
+instance: instance_BrX9HtpP1L0
+```
 
 ## Git force pushes
 
 Force pushes rewrite history in git, and can corrupt the state of your instances. Force pushing should be avoided.
 
-## Git pre-commit hooks
-
-This project uses [pre-commit](https://pre-commit.com) to lint all YAML files before allowing `git commit` to proceed.
-
-### Installation
-
-1. Create and activate your preferred Python interpreter (conda, virtualenv, etc.)
-2. Install the `pre-commit` Python package:
-   ```shell
-   pip install -r requirements.txt
-   ```
-3. Check that `pre-commit` is properly installed:
-   ```shell
-   $ pre-commit --version
-   pre-commit 2.17.0
-   ```
-4. Install the git hook scripts:
-   ```shell
-   $ pre-commit install
-   pre-commit installed at .git/hooks/pre-commit
-   ```
-
-### Usage
-
-1. Activate the Python interpreter for this project.
-2. Develop normally and experience the pre-commit hook during `git commit`.
-
 ## Other issues
 
-If instance deletion is desired, it must currently be performed manually.
-
-The automation will write back the instance ID for instances that get deployed, this should be refactored to happen on a branch.
+* If instance deletion is desired, it must currently be performed manually.
+* The automation will write back the instance ID for instances that get deployed, this should be refactored to happen on a branch.
