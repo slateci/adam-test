@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy
-    uses: slateci/github-actions/.github/workflows/slate-deployment.yml@feature/6_add-slate-instance-gitops
+    uses: slateci/github-actions/.github/workflows/slate-deployment.yml@master
     with:
       mailgun_send_to: "adam.h.griffith@utah.edu"
     secrets:
