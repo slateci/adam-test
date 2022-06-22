@@ -2,7 +2,7 @@ Ingress:
   Enabled: true
   Class: slate
   Subdomain: adam-test
-Data: !<!> "<html>\n<body>\n<h1>Hello world!</h1>\n<p>Change number: 20</p>\n</body>\n</html>"
+Data: !<!> "<html>\n<body>\n<h1>Hello world!</h1>\n<p>Change number: 21</p>\n</body>\n</html>"
 NetworkPolicy:
   AllowedCIDRs:
     - 0.0.0.0/0
