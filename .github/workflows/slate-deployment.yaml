@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy
-    uses: slateci/github-actions/.github/workflows/slate-deployment.yml@master
+    uses: slateci/github-actions/.github/workflows/slate-deployment.yml@v1
     with:
       mailgun_send_to: "adam.h.griffith@utah.edu"
     secrets:
